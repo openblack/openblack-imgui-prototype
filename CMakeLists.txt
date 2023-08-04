@@ -55,7 +55,7 @@ if (EMSCRIPTEN)
           LINK_FLAGS_DEBUG "-g3 -gsource-map"
           COMPILE_FLAGS "-s USE_SDL=2 -fexceptions"
           LINK_FLAGS
-          "-s ALLOW_MEMORY_GROWTH=1 -s USE_SDL=2 -s FULL_ES3=1 -s GL_ASSERTIONS=1 -s USE_WEBGL2=1 -fexceptions --emrun"
+          "-s EXPORTED_FUNCTIONS=\"['_main', '_malloc']\" -s EXPORTED_RUNTIME_METHODS=ccall -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL=2 -s FULL_ES3=1 -s GL_ASSERTIONS=1 -s USE_WEBGL2=1 -fexceptions --emrun"
           SUFFIX ".html"
   )
 endif ()
