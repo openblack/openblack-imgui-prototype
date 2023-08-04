@@ -39,6 +39,7 @@ find_package(imgui REQUIRED)
 find_package(unofficial-nativefiledialog CONFIG REQUIRED)
 
 add_executable(openblack-imgui-prototype main.cpp)
+add_compile_definitions(openblack-imgui-prototype SDL_MAIN_HANDLED)
 target_link_libraries(openblack-imgui-prototype SDL2::SDL2 imgui::imgui)
 if (NOT EMSCRIPTEN)
   target_link_libraries(openblack-imgui-prototype unofficial::nativefiledialog::nfd)
