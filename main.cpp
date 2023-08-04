@@ -89,7 +89,7 @@ EM_JS(void, jsOpenDialog, (), {
             var data = Module._malloc(length);
 
             Module.HEAPU8.set(contents, data);
-            Module.asm.fileRead(data, length);
+            Module.instance.exports.fileRead(data, length);
 
             Module._free(data);
         };
