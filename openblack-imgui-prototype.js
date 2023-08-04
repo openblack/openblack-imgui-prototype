@@ -11451,7 +11451,7 @@ var wasmImports = {
 var asm = createWasm();
 var ___wasm_call_ctors = createExportWrapper('__wasm_call_ctors');
 var _free = Module['_free'] = createExportWrapper('free');
-var _malloc = createExportWrapper('malloc');
+var _malloc = Module['_malloc'] = createExportWrapper('malloc');
 var _fileRead = Module['_fileRead'] = createExportWrapper('fileRead');
 var _main = Module['_main'] = createExportWrapper('__main_argc_argv');
 var ___cxa_free_exception = createExportWrapper('__cxa_free_exception');
