@@ -36,7 +36,26 @@ if (NOT Stb_FOUND)
 endif ()
 
 find_package(imgui REQUIRED)
+find_package(unofficial-nativefiledialog CONFIG REQUIRED)
 
 add_executable(openblack-imgui-prototype main.cpp)
 target_link_libraries(openblack-imgui-prototype SDL2::SDL2 imgui::imgui)
+if (NOT EMSCRIPTEN)
+  target_link_libraries(openblack-imgui-prototype unofficial::nativefiledialog::nfd)
+endif ()
 target_include_directories(openblack-imgui-prototype PRIVATE ${Stb_INCLUDE_DIR})
+
+if (EMSCRIPTEN)
+  # Must be run from project root using `emrun --no_browser --serve_after_close --serve_after_exit .`
+  # Browser should point to http://localhost:6931/emscripten-vcpkg/bin/Debug/openblack.html?-g&relative/path/to/game/files
+  set_target_properties(
+          openblack-imgui-prototype
+          PROPERTIES
+          COMPILE_FLAGS_DEBUG "-g3 -gsource-map"
+          LINK_FLAGS_DEBUG "-g3 -gsource-map"
+          COMPILE_FLAGS "-s USE_SDL=2 -fexceptions"
+          LINK_FLAGS
+          "-s ALLOW_MEMORY_GROWTH=1 -s USE_SDL=2 -s FULL_ES3=1 -s GL_ASSERTIONS=1 -s USE_WEBGL2=1 -fexceptions --emrun"
+          SUFFIX ".html"
+  )
+endif ()
